@@ -1,4 +1,4 @@
-package eu.curtisy.kwallet.ui.home
+package eu.curtisy.kwallet.ui.screens.overview
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class HomeViewModel(
+class OverviewViewModel(
     private val getCoinUseCase: GetCoinUseCase,
 ) : ViewModel() {
     var creditCards: List<CreditCard> by mutableStateOf(emptyList())
