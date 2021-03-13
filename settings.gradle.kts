@@ -1,2 +1,2 @@
 rootProject.name = "KWallet"
-include ':app'
+include(":app")
