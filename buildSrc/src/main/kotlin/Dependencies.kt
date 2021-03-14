@@ -107,6 +107,14 @@ object Dependencies {
         const val workManager = "$path:koin-androidx-workmanager:$version"
     }
 
+    object SqlDelight {
+        private const val version = "1.4.4"
+        const val android = "com.squareup.sqldelight:android-driver:$version"
+        const val coroutineExtensions = "com.squareup.sqldelight:coroutines-extensions:$version"
+        const val gradle = "com.squareup.sqldelight:gradle-plugin:$version"
+        const val runtime = "com.squareup.sqldelight:runtime:$version"
+    }
+
     object Timber {
         private const val version = "4.7.1"
         const val base = "com.jakewharton.timber:timber:$version"
