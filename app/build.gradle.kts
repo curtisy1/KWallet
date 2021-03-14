@@ -38,13 +38,17 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/ktor-client-json.kotlin_module")
-        exclude("META-INF/ktor-client-core.kotlin_module")
-        exclude("META-INF/ktor-io.kotlin_module")
-        exclude("META-INF/ktor-http.kotlin_module")
-        exclude("META-INF/ktor-http-cio.kotlin_module")
-        exclude("META-INF/ktor-utils.kotlin_module")
-        exclude("META-INF/DEPENDENCIES")
+        resources {
+            excludes.addAll(listOf(
+                "META-INF/ktor-client-json.kotlin_module",
+                "META-INF/ktor-client-core.kotlin_module",
+                "META-INF/ktor-io.kotlin_module",
+                "META-INF/ktor-http.kotlin_module",
+                "META-INF/ktor-http-cio.kotlin_module",
+                "META-INF/ktor-utils.kotlin_module",
+                "META-INF/DEPENDENCIES"
+            ))
+        }
     }
 }
 
