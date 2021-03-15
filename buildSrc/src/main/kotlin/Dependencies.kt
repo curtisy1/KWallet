@@ -65,11 +65,11 @@ object Dependencies {
     }
 
     object Kotlin {
-        const val version = "1.4.31"
+        private const val version = "1.4.31"
         private const val path = "org.jetbrains.kotlin"
 
         const val stdlib = "$path:kotlin-stdlib-jdk8:$version"
-        const val plugin = "$path:kotlin-gradle-plugin:$version"
+        const val gradle = "$path:kotlin-gradle-plugin:$version"
     }
 
     object KotlinX {

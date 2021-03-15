@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("com.squareup.sqldelight")
 }
 
 android {
@@ -60,6 +59,8 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
+
+    implementation(project(":data"))
     implementation(Dependencies.KotlinX.Coroutines.core)
     implementation(Dependencies.KotlinX.Coroutines.android)
 
@@ -106,15 +107,4 @@ dependencies {
     implementation(Dependencies.SqlDelight.coroutineExtensions)
 
     api(Dependencies.Timber.base)
-}
-
-sqldelight {
-    database("KWalletDb") {
-        packageName = "eu.curtisy.kwallet.db"
-        sourceFolders = listOf("db")
-        schemaOutputDirectory = file("build/dbs")
-        dialect = "sqlite:3.24"
-        verifyMigrations = true
-    }
-    linkSqlite = false
 }

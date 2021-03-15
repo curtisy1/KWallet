@@ -1,0 +1,28 @@
+CREATE TABLE card(
+    cardNumber INTEGER NOT NULL,
+    fullName TEXT NOT NULL,
+    cvv INTEGER AS Short NOT NULL,
+    validMonth INTEGER AS Short NOT NULL,
+    validYear INTEGER NOT NULL,
+    color TEXT NOT NULL,
+    isVisa INTEGER AS Boolean NOT NULL
+);
+
+CREATE INDEX card_fullName ON card(fullName);
+
+selectAllCards:
+SELECT *
+FROM card;
+
+selectByCardNumber:
+SELECT *
+FROM card
+WHERE cardNumber = ?;
+
+insertOrUpdateCard:
+INSERT OR REPLACE INTO card(cardNumber, fullName, cvv, validMonth, validYear, color, isVisa)
+VALUES ?;
+
+deleteCard:
+DELETE FROM card
+WHERE cardNumber = ?;
