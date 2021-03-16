@@ -45,7 +45,16 @@ fun Overview(navController: NavHostController) {
                     items = cards,
                     generatorFunc = {
                         CardView(accentColor = it.color.toColor()) {
-                            CardContent()
+                            CardContent(
+                                iban = "DE 1234567890",
+                                isVisa = true,
+                                bic = "BELADEBXXX",
+                                cardHolder = "Some Cool Dude",
+                                cardNumber = 1234567890,
+                                cvc = 123,
+                                validMonth = 12,
+                                validYear = 21
+                            )
                         }
                         Spacer(Modifier.width(5.dp))
 

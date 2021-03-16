@@ -22,7 +22,16 @@ fun CardCreation(navController: NavHostController) {
         },
         content = {
             CardView(accentColor = Color.LightGray) {
-                CardContent()
+                CardContent(
+                    iban = "DE 1234567890",
+                    isVisa = true,
+                    bic = "BELADEBXXX",
+                    cardHolder = "Some Cool Dude",
+                    cardNumber = 1234567890,
+                    cvc = 123,
+                    validMonth = 12,
+                    validYear = 21
+                )
             }
         }
     )

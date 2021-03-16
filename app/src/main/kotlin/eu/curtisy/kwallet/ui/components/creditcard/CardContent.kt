@@ -12,14 +12,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.curtisy.kwallet.ui.components.CardView
 import eu.curtisy.kwallet.ui.theme.onPurple
-import java.util.*
 
 @Composable
 fun CardContent(
+    cardNumber: Long,
+    cardHolder: String,
+    cvc: Short,
+    iban: String,
+    bic: String,
+    validMonth: Short,
+    validYear: Int,
     isVisa: Boolean = true,
-    iban: Int = 1234567890,
-    expiry: Calendar = Calendar.getInstance(),
-    cvv: Int = 890
 ) {
     Box(Modifier.padding(top = 16.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)) {
         Text(
@@ -31,7 +34,7 @@ fun CardContent(
         )
         // TODO: Use something other than padding here? Like stick to bottom?
         Text(
-            text = iban.toString(),
+            text = cardNumber.toString(),
             style = MaterialTheme.typography.body1.copy(
                 color = onPurple,
                 fontWeight = FontWeight.Medium
@@ -39,7 +42,7 @@ fun CardContent(
             modifier = Modifier.padding(top = 50.dp)
         )
         Text(
-            text = "${expiry.get(Calendar.MONTH)}/${expiry.get(Calendar.YEAR)}",
+            text = "${validMonth}/${validYear}",
             style = MaterialTheme.typography.body1.copy(
                 color = onPurple,
                 fontWeight = FontWeight.Medium
@@ -53,6 +56,15 @@ fun CardContent(
 @Preview
 private fun CardContentPreview() {
     CardView(accentColor = Color.LightGray) {
-        CardContent()
+        CardContent(
+            iban = "DE 1234567890",
+            isVisa = true,
+            bic = "BELADEBXXX",
+            cardHolder = "Some Cool Dude",
+            cardNumber = 1234567890,
+            cvc = 123,
+            validMonth = 12,
+            validYear = 21
+        )
     }
 }

@@ -36,14 +36,50 @@ fun <T> HorizontalList(
 @Preview
 private fun HorizontalListPreview() {
     val creditCards: List<Card> = listOf(
-        Card(1234567890, "One", 123, 12, 21, "#FFFFFF", true),
-        Card(987654321, "Two", 234, 1, 20, "#000000", false),
-        Card(6789054321, "Three", 345, 3, 19, "#555555", false)
+        Card(1234567890,
+            "One",
+            123,
+            "DE 123456789",
+            "BDERFGT",
+            12,
+            21,
+            "#FFFFFF",
+            true
+        ),
+        Card(1234567890,
+            "One",
+            123,
+            "DE 123456789",
+            "BDERFGT",
+            12,
+            21,
+            "#FFFFFF",
+            false
+        ),
+        Card(1234567890,
+            "One",
+            123,
+            "DE 123456789",
+            "BDERFGT",
+            12,
+            21,
+            "#FFFFFF",
+            true
+        ),
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
         CardView(accentColor = it.color.toColor()) {
-            CardContent()
+            CardContent(
+                it.cardNumber,
+                it.fullName,
+                it.cvc,
+                it.iban,
+                it.bic,
+                it.validMonth,
+                it.validYear,
+                it.isVisa
+            )
         }
         Spacer(Modifier.width(5.dp))
     })

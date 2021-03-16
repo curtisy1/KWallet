@@ -1,9 +1,11 @@
 CREATE TABLE card(
     cardNumber INTEGER NOT NULL,
     fullName TEXT NOT NULL,
-    cvv INTEGER AS Short NOT NULL,
+    cvc INTEGER AS Short NOT NULL,
+    iban TEXT NOT NULL,
+    bic TEXT NOT NULL,
     validMonth INTEGER AS Short NOT NULL,
-    validYear INTEGER NOT NULL,
+    validYear INTEGER AS Integer NOT NULL,
     color TEXT NOT NULL,
     isVisa INTEGER AS Boolean NOT NULL
 );
@@ -20,7 +22,7 @@ FROM card
 WHERE cardNumber = ?;
 
 insertOrUpdateCard:
-INSERT OR REPLACE INTO card(cardNumber, fullName, cvv, validMonth, validYear, color, isVisa)
+INSERT OR REPLACE INTO card(cardNumber, fullName, cvc, iban, bic, validMonth, validYear, color, isVisa)
 VALUES ?;
 
 deleteCard:
