@@ -9,6 +9,7 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import eu.curtisy.kwallet.ui.components.CardView
 import eu.curtisy.kwallet.ui.components.appbars.TopNavBar
+import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 import eu.curtisy.kwallet.ui.navigation.AppRoutes
 
 @Composable
@@ -20,7 +21,9 @@ fun CardCreation(navController: NavHostController) {
                 onBackPressed = { navController.navigate(AppRoutes.CARD_OVERVIEW) })
         },
         content = {
-            CardView(accentColor = Color.LightGray)
+            CardView(accentColor = Color.LightGray) {
+                CardContent()
+            }
         }
     )
 }

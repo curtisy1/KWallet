@@ -10,6 +10,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import eu.curtisy.kwallet.data.Card
 import eu.curtisy.kwallet.extensions.toColor
 import eu.curtisy.kwallet.ui.components.CardView
+import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 
 @Composable
 fun <T> HorizontalList(
@@ -41,7 +42,9 @@ private fun HorizontalListPreview() {
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
-        CardView(accentColor = it.color.toColor())
+        CardView(accentColor = it.color.toColor()) {
+            CardContent()
+        }
         Spacer(Modifier.width(5.dp))
     })
 }

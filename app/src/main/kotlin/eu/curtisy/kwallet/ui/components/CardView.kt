@@ -17,49 +17,23 @@ import java.util.*
 @Composable
 fun CardView(
     accentColor: Color,
-    isVisa: Boolean = true,
-    iban: Int = 1234567890,
-    expiry: Calendar = Calendar.getInstance(),
-    cvv: Int = 890
+    content: @Composable () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
         backgroundColor = Color.LightGray,
         contentColor = Color.Black,
         elevation = 8.dp,
-        modifier = Modifier.width(240.dp).height(120.dp)
+        modifier = Modifier
+            .width(240.dp)
+            .height(120.dp)
     ) {
-        Box(Modifier.padding(top = 16.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)) {
-            Text(
-                text = if(isVisa) "VISA" else "MasterCard",
-                style = MaterialTheme.typography.h6.copy(
-                    color = MaterialTheme.colors.onBackground,
-                    fontWeight = FontWeight.Medium
-                )
-            )
-            // TODO: Use something other than padding here? Like stick to bottom?
-            Text(
-                text = iban.toString(),
-                style = MaterialTheme.typography.body1.copy(
-                    color = onPurple,
-                    fontWeight = FontWeight.Medium
-                ),
-                modifier = Modifier.padding(top = 50.dp)
-            )
-            Text(
-                text = "${expiry.get(Calendar.MONTH)}/${expiry.get(Calendar.YEAR)}",
-                style = MaterialTheme.typography.body1.copy(
-                    color = onPurple,
-                    fontWeight = FontWeight.Medium
-                ),
-                modifier = Modifier.padding(top = 70.dp)
-            )
-        }
+        content()
     }
 }
 
 @Composable
 @Preview("Preview")
 private fun CardGradientPreview() {
-    CardView(accentColor = Color.Transparent)
+    CardView(accentColor = Color.Transparent, content = { Text("TestContent") })
 }
