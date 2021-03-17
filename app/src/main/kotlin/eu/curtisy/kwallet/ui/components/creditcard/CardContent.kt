@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import eu.curtisy.kwallet.extensions.toColor
 import eu.curtisy.kwallet.ui.components.CardView
 
 @Composable
@@ -18,17 +19,24 @@ fun CardContent(
     validMonth: Short,
     validYear: Int,
     isVisa: Boolean,
+    color: String? = null,
+    onClick: () -> Unit = { }
 ) {
-    Column(
-        verticalArrangement = Arrangement.SpaceEvenly,
+    CardView(
+        backgroundColor = color?.toColor(),
+        onClick = onClick
     ) {
-        CardFrontLayer(
-            cardNumber = cardNumber,
-            cardHolder = cardHolder,
-            validMonth = validMonth,
-            validYear = validYear,
-            isVisa = isVisa
-        )
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            CardFrontLayer(
+                cardNumber = cardNumber,
+                cardHolder = cardHolder,
+                validMonth = validMonth,
+                validYear = validYear,
+                isVisa = isVisa
+            )
+        }
     }
 }
 
@@ -89,19 +97,16 @@ fun CardBackLayer(
 @Composable
 @Preview
 private fun CardContentPreview() {
-    CardView {
-        CardContent(
-            iban = "DE 1234567890",
-            isVisa = true,
-            bic = "BELADEBXXX",
-            cardHolder = "Some Cool Dude",
-            cardNumber = 1234567890,
-            cvc = 123,
-            validMonth = 12,
-            validYear = 21
-        )
-    }
-
+    CardContent(
+        iban = "DE 1234567890",
+        isVisa = true,
+        bic = "BELADEBXXX",
+        cardHolder = "Some Cool Dude",
+        cardNumber = 1234567890,
+        cvc = 123,
+        validMonth = 12,
+        validYear = 21,
+    )
 }
 
 @Composable

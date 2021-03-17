@@ -9,8 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import eu.curtisy.kwallet.ui.components.list.HorizontalList
-import eu.curtisy.kwallet.extensions.toColor
-import eu.curtisy.kwallet.ui.components.CardView
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 import eu.curtisy.kwallet.ui.components.creditcard.Placeholder
 import eu.curtisy.kwallet.ui.navigation.AppRoutes
@@ -34,18 +32,20 @@ fun Overview(navController: NavHostController) {
                 HorizontalList(
                     items = cards,
                     generatorFunc = {
-                        CardView(backgroundColor = it.color.toColor()) {
-                            CardContent(
-                                cardNumber = it.cardNumber,
-                                cardHolder = it.fullName,
-                                cvc = it.cvc,
-                                iban = it.iban,
-                                bic = it.bic,
-                                validMonth = it.validMonth,
-                                validYear = it.validYear,
-                                isVisa = it.isVisa
-                            )
-                        }
+                        CardContent(
+                            cardNumber = it.cardNumber,
+                            cardHolder = it.fullName,
+                            cvc = it.cvc,
+                            iban = it.iban,
+                            bic = it.bic,
+                            validMonth = it.validMonth,
+                            validYear = it.validYear,
+                            isVisa = it.isVisa,
+                            color = it.color,
+                            onClick = {
+                                Timber.i("Card was pressed. Should now toggle")
+                            }
+                        )
                         Spacer(Modifier.width(5.dp))
 
                         if (cards.indexOf(it) == cards.size) {

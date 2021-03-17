@@ -1,5 +1,6 @@
 package eu.curtisy.kwallet.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -11,18 +12,20 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CardView(
-    backgroundColor: Color = Color.LightGray,
+    backgroundColor: Color? = Color.LightGray,
     contentColor: Color = Color.Black,
-    content: @Composable () -> Unit
+    onClick: () -> Unit = { },
+    content: @Composable () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
-        backgroundColor = backgroundColor,
+        backgroundColor = backgroundColor ?: Color.LightGray,
         contentColor = contentColor,
         elevation = 8.dp,
         modifier = Modifier
             .width(240.dp)
             .height(120.dp)
+            .clickable { onClick() }
     ) {
         content()
     }

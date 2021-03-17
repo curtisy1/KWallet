@@ -78,7 +78,8 @@ private fun HorizontalListPreview() {
                 it.bic,
                 it.validMonth,
                 it.validYear,
-                it.isVisa
+                it.isVisa,
+                it.color
             )
         }
         Spacer(Modifier.width(5.dp))
