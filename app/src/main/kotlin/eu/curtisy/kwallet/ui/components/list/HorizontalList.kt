@@ -69,7 +69,7 @@ private fun HorizontalListPreview() {
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
-        CardView(accentColor = it.color.toColor()) {
+        CardView(backgroundColor = it.color.toColor()) {
             CardContent(
                 it.cardNumber,
                 it.fullName,

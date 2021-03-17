@@ -1,16 +1,8 @@
 package eu.curtisy.kwallet.ui.screens.overview
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -22,10 +14,8 @@ import eu.curtisy.kwallet.ui.components.CardView
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 import eu.curtisy.kwallet.ui.components.creditcard.Placeholder
 import eu.curtisy.kwallet.ui.navigation.AppRoutes
-import eu.curtisy.kwallet.ui.theme.onPurple
 import org.koin.androidx.compose.getViewModel
 import timber.log.Timber
-import java.util.*
 
 @Composable
 fun Overview(navController: NavHostController) {
@@ -44,7 +34,7 @@ fun Overview(navController: NavHostController) {
                 HorizontalList(
                     items = cards,
                     generatorFunc = {
-                        CardView(accentColor = it.color.toColor()) {
+                        CardView(backgroundColor = it.color.toColor()) {
                             CardContent(
                                 cardNumber = it.cardNumber,
                                 cardHolder = it.fullName,
@@ -71,18 +61,6 @@ fun Overview(navController: NavHostController) {
             }
         }
     }
-    // TODO: This is for v2. Focus on card functionality for now
-//    Column(Modifier.padding(top = 240.dp)) {
-//        VerticalList(
-//            items = payments,
-//            generatorFunc = {
-//                PaymentItem(payment = it, modifier = Modifier.padding(bottom = 24.dp))
-//            },
-//            Modifier
-//                .fillMaxWidth()
-//                .fillMaxHeight()
-//        )
-//    }
 }
 
 @Composable

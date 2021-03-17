@@ -21,7 +21,7 @@ fun CardCreation(navController: NavHostController) {
                 onBackPressed = { navController.navigate(AppRoutes.CARD_OVERVIEW) })
         },
         content = {
-            CardView(accentColor = Color.LightGray) {
+            CardView() {
                 CardContent(
                     iban = "DE 1234567890",
                     isVisa = true,

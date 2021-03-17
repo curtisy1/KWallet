@@ -1,17 +1,12 @@
 package eu.curtisy.kwallet.ui.components.creditcard
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.curtisy.kwallet.ui.components.CardView
-import eu.curtisy.kwallet.ui.theme.onPurple
 
 @Composable
 fun CardContent(
@@ -22,40 +17,79 @@ fun CardContent(
     bic: String,
     validMonth: Short,
     validYear: Int,
-    isVisa: Boolean = true,
+    isVisa: Boolean,
 ) {
-    Box(Modifier.padding(top = 16.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)) {
-        Text(
-            text = if(isVisa) "VISA" else "MasterCard",
-            style = MaterialTheme.typography.h6.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.Medium
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+    ) {
+        CardFrontLayer(
+            cardNumber = cardNumber,
+            cardHolder = cardHolder,
+            validMonth = validMonth,
+            validYear = validYear,
+            isVisa = isVisa
+        )
+    }
+}
+
+@Composable
+fun CardFrontLayer(
+    cardNumber: Long,
+    cardHolder: String,
+    validMonth: Short,
+    validYear: Int,
+    isVisa: Boolean,
+) {
+    Column(
+        modifier = Modifier.padding(start = 5.dp)
+    ) {
+        Column {
+            Text(
+                text = if (isVisa) "VISA" else "MasterCard",
             )
-        )
-        // TODO: Use something other than padding here? Like stick to bottom?
-        Text(
-            text = cardNumber.toString(),
-            style = MaterialTheme.typography.body1.copy(
-                color = onPurple,
-                fontWeight = FontWeight.Medium
-            ),
-            modifier = Modifier.padding(top = 50.dp)
-        )
-        Text(
-            text = "${validMonth}/${validYear}",
-            style = MaterialTheme.typography.body1.copy(
-                color = onPurple,
-                fontWeight = FontWeight.Medium
-            ),
-            modifier = Modifier.padding(top = 70.dp)
-        )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        Column() {
+            Text(
+                text = cardNumber.toString(),
+            )
+            Text(
+                text = "${validMonth}/${validYear}",
+            )
+        }
+    }
+}
+
+@Composable
+fun CardBackLayer(
+    iban: String,
+    bic: String,
+    cvc: Short,
+) {
+    Column(
+        modifier = Modifier.padding(start = 5.dp)
+    ) {
+        Column {
+            Text(
+                text = iban,
+            )
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        Column() {
+            Text(
+                text = bic,
+            )
+            Text(
+                text = cvc.toString(),
+            )
+        }
     }
 }
 
 @Composable
 @Preview
 private fun CardContentPreview() {
-    CardView(accentColor = Color.LightGray) {
+    CardView {
         CardContent(
             iban = "DE 1234567890",
             isVisa = true,
@@ -67,4 +101,27 @@ private fun CardContentPreview() {
             validYear = 21
         )
     }
+
+}
+
+@Composable
+@Preview
+private fun CardFrontLayerPreview() {
+    CardFrontLayer(
+        isVisa = true,
+        cardHolder = "Some Cool Dude",
+        cardNumber = 1234567890,
+        validMonth = 12,
+        validYear = 21
+    )
+}
+
+@Composable
+@Preview
+private fun CardBackLayerPreview() {
+    CardBackLayer(
+        iban = "DE 1234567890",
+        bic = "BELADEBXXX",
+        cvc = 123,
+    )
 }
