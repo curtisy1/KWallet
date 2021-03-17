@@ -92,7 +92,6 @@ dependencies {
     implementation(Dependencies.Ktor.gson)
     implementation(Dependencies.Ktor.logging)
 
-    api(Dependencies.Accompanist.coil)
     api(Dependencies.Accompanist.insets)
 
     implementation(Dependencies.Koin.core)

@@ -1,15 +1,14 @@
 object Dependencies {
 
     object Accompanist {
-        private const val version = "0.6.0"
+        private const val version = "0.6.2"
         private const val path = "dev.chrisbanes.accompanist"
 
-        const val coil = "$path:accompanist-coil:$version"
         const val insets = "$path:accompanist-insets:$version"
     }
 
     object Android {
-        const val gradle = "com.android.tools.build:gradle:7.0.0-alpha09"
+        const val gradle = "com.android.tools.build:gradle:7.0.0-alpha10"
         const val material = "com.google.android.material:material:1.3.0"
     }
 

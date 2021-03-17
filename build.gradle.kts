@@ -8,7 +8,6 @@ buildscript {
         classpath(Dependencies.Android.gradle)
         classpath(Dependencies.Kotlin.gradle)
         classpath(Dependencies.SqlDelight.gradle)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
     }
 }
 
