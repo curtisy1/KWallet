@@ -42,9 +42,6 @@ fun Overview(navController: NavHostController) {
                             validYear = it.validYear,
                             isVisa = it.isVisa,
                             color = it.color,
-                            onClick = {
-                                Timber.i("Card was pressed. Should now toggle")
-                            }
                         )
                         Spacer(Modifier.width(5.dp))
 

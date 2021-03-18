@@ -12,17 +12,19 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CardView(
+    modifier: Modifier = Modifier,
     backgroundColor: Color? = Color.LightGray,
     contentColor: Color = Color.Black,
     onClick: () -> Unit = { },
     content: @Composable () -> Unit,
 ) {
+
     Card(
         shape = RoundedCornerShape(10.dp),
         backgroundColor = backgroundColor ?: Color.LightGray,
         contentColor = contentColor,
         elevation = 8.dp,
-        modifier = Modifier
+        modifier = modifier
             .width(240.dp)
             .height(120.dp)
             .clickable { onClick() }
