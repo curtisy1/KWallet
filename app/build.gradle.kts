@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 }
 
 android {
@@ -20,7 +21,12 @@ android {
     buildTypes {
         named("release") {
             isMinifyEnabled = false
-            setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
+            setProguardFiles(
+                listOf(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            )
         }
     }
 
@@ -39,15 +45,17 @@ android {
 
     packagingOptions {
         resources {
-            excludes.addAll(listOf(
-                "META-INF/ktor-client-json.kotlin_module",
-                "META-INF/ktor-client-core.kotlin_module",
-                "META-INF/ktor-io.kotlin_module",
-                "META-INF/ktor-http.kotlin_module",
-                "META-INF/ktor-http-cio.kotlin_module",
-                "META-INF/ktor-utils.kotlin_module",
-                "META-INF/DEPENDENCIES"
-            ))
+            excludes.addAll(
+                listOf(
+                    "META-INF/ktor-client-json.kotlin_module",
+                    "META-INF/ktor-client-core.kotlin_module",
+                    "META-INF/ktor-io.kotlin_module",
+                    "META-INF/ktor-http.kotlin_module",
+                    "META-INF/ktor-http-cio.kotlin_module",
+                    "META-INF/ktor-utils.kotlin_module",
+                    "META-INF/DEPENDENCIES"
+                )
+            )
         }
     }
 }
@@ -106,4 +114,11 @@ dependencies {
     implementation(Dependencies.SqlDelight.coroutineExtensions)
 
     api(Dependencies.Timber.base)
+}
+
+ktlint {
+    android.set(true)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
+    enableExperimentalRules.set(true)
 }
