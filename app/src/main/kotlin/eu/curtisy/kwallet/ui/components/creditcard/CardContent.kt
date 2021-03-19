@@ -9,6 +9,9 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.curtisy.kwallet.extensions.toColor
+import eu.curtisy.kwallet.ui.animations.fadingAlpha
+import eu.curtisy.kwallet.ui.animations.reversibleAnimation
+import eu.curtisy.kwallet.ui.animations.yAxisRotation
 import eu.curtisy.kwallet.ui.components.CardView
 
 @Composable
@@ -27,22 +30,14 @@ fun CardContent(
         mutableStateOf(true)
     }
 
-    // TODO: Refactor to make these dynamic
-    val frontLayerAlpha: Float by animateFloatAsState(
-        targetValue = if (isFrontVisible) 1f else 0f,
-        // configure the animation duration and easing
-        animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
+    val frontLayerAlpha by fadingAlpha(
+        condition = isFrontVisible
     )
-    val backLayerAlpha: Float by animateFloatAsState(
-        targetValue = if (isFrontVisible) 0f else 1f,
-        // configure the animation duration and easing
-        animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
+    val backLayerAlpha by fadingAlpha(
+        condition = !isFrontVisible
     )
-    val cardRotation: Float by animateFloatAsState(
-        // TODO: Double animation. If changing to single we need to reverse the content in the back layer
-        targetValue = if (isFrontVisible) 0f else -360f,
-        // configure the animation duration and easing
-        animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
+    val cardRotation by yAxisRotation(
+        condition = isFrontVisible,
     )
 
     CardView(
