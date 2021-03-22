@@ -8,8 +8,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import eu.curtisy.kwallet.data.Card
-import eu.curtisy.kwallet.extensions.toColor
-import eu.curtisy.kwallet.ui.components.CardView
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 
 @Composable
@@ -35,8 +33,9 @@ fun <T> HorizontalList(
 @Composable
 @Preview
 private fun HorizontalListPreview() {
-    val creditCards: List<Card> = listOf(
-        Card(1234567890,
+    val creditCards = listOf(
+        Card(
+            1234567890,
             "One",
             123,
             "DE 123456789",
@@ -46,7 +45,8 @@ private fun HorizontalListPreview() {
             "#FFFFFF",
             true
         ),
-        Card(1234567890,
+        Card(
+            1234567890,
             "One",
             123,
             "DE 123456789",
@@ -56,7 +56,8 @@ private fun HorizontalListPreview() {
             "#FFFFFF",
             false
         ),
-        Card(1234567890,
+        Card(
+            1234567890,
             "One",
             123,
             "DE 123456789",
@@ -69,19 +70,7 @@ private fun HorizontalListPreview() {
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
-        CardView(backgroundColor = it.color.toColor()) {
-            CardContent(
-                it.cardNumber,
-                it.fullName,
-                it.cvc,
-                it.iban,
-                it.bic,
-                it.validMonth,
-                it.validYear,
-                it.isVisa,
-                it.color
-            )
-        }
+        CardContent(it)
         Spacer(Modifier.width(5.dp))
     })
 }

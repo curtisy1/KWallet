@@ -5,7 +5,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import eu.curtisy.kwallet.data.WalletDatabase
 import eu.curtisy.kwallet.data.repositories.CardRepository
 import eu.curtisy.kwallet.data.repositories.CardRepositoryImpl
-import eu.curtisy.kwallet.ui.screens.overview.OverviewViewModel
+import eu.curtisy.kwallet.ui.screens.overview.CardViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
@@ -25,5 +25,5 @@ val coreModule = module {
 
     single<CardRepository> { CardRepositoryImpl(get()) }
 
-    viewModel { OverviewViewModel(get()) }
+    viewModel { CardViewModel(get()) }
 }

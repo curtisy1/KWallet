@@ -8,48 +8,35 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import eu.curtisy.kwallet.data.repositories.PreviewCardRepositoryImpl
 import eu.curtisy.kwallet.ui.components.list.HorizontalList
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
 import eu.curtisy.kwallet.ui.components.creditcard.Placeholder
 import eu.curtisy.kwallet.ui.navigation.AppRoutes
-import org.koin.androidx.compose.getViewModel
-import timber.log.Timber
 
 @Composable
-fun Overview(navController: NavHostController) {
-    val viewModel = getViewModel<OverviewViewModel>()
+fun Overview(navController: NavHostController, viewModel: CardViewModel) {
     val cards = viewModel.creditCards
-    val payments = viewModel.payments
 
     Column(Modifier.padding(top = 80.dp)) {
         Row {
             if (cards.isEmpty()) {
-                Placeholder(onClick = {
-                    Timber.i("Button was pressed")
-                    navController.navigate(AppRoutes.CARD_CREATION)
-                })
+                PlaceholderRender(
+                    viewModel = viewModel,
+                    navController = navController
+                )
             } else {
                 HorizontalList(
                     items = cards,
                     generatorFunc = {
-                        CardContent(
-                            cardNumber = it.cardNumber,
-                            cardHolder = it.fullName,
-                            cvc = it.cvc,
-                            iban = it.iban,
-                            bic = it.bic,
-                            validMonth = it.validMonth,
-                            validYear = it.validYear,
-                            isVisa = it.isVisa,
-                            color = it.color,
-                        )
+                        CardContent(it)
                         Spacer(Modifier.width(5.dp))
 
                         if (cards.indexOf(it) == cards.size) {
-                            Placeholder(onClick = {
-                                Timber.i("Button was pressed")
-                                navController.navigate(AppRoutes.CARD_CREATION)
-                            })
+                            PlaceholderRender(
+                                viewModel = viewModel,
+                                navController = navController
+                            )
                         }
                     },
                     Modifier
@@ -61,8 +48,38 @@ fun Overview(navController: NavHostController) {
 }
 
 @Composable
+fun PlaceholderRender(viewModel: CardViewModel, navController: NavHostController): Unit {
+    Placeholder(
+        onClick = {
+            viewModel.addCard()
+            navController.navigate(AppRoutes.CARD_CREATION)
+        }
+    )
+}
+
+@Composable
 @Preview
 private fun HomePreview() {
-    Overview(rememberNavController())
+    val viewModel = CardViewModel(
+        cardRepository = PreviewCardRepositoryImpl()
+    )
+
+    Overview(
+        navController = rememberNavController(),
+        viewModel = viewModel
+    )
+}
+
+@Composable
+@Preview
+private fun PlaceholderRenderPreview() {
+    val viewModel = CardViewModel(
+        cardRepository = PreviewCardRepositoryImpl()
+    )
+
+    PlaceholderRender(
+        navController = rememberNavController(),
+        viewModel = viewModel
+    )
 }
 
