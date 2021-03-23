@@ -92,14 +92,6 @@ dependencies {
     api(Dependencies.AndroidX.LifeCycle.extensions)
     api(Dependencies.AndroidX.LifeCycle.livedata)
 
-    implementation(Dependencies.Ktor.okhttp)
-    implementation(Dependencies.Ktor.apache)
-    implementation(Dependencies.Ktor.json)
-    implementation(Dependencies.Ktor.jvmAuth)
-    implementation(Dependencies.Ktor.basicAuth)
-    implementation(Dependencies.Ktor.gson)
-    implementation(Dependencies.Ktor.logging)
-
     api(Dependencies.Accompanist.insets)
 
     implementation(Dependencies.Koin.core)
