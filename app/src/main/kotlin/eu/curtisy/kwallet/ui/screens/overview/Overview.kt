@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.systemBarsPadding
 import eu.curtisy.kwallet.data.Card
 import eu.curtisy.kwallet.data.repositories.PreviewCardRepositoryImpl
 import eu.curtisy.kwallet.ui.components.list.HorizontalList
@@ -19,7 +20,7 @@ import eu.curtisy.kwallet.ui.navigation.AppRoutes
 fun Overview(navController: NavHostController, viewModel: CardViewModel) {
     val cards = viewModel.creditCards
 
-    Column(Modifier.padding(top = 80.dp)) {
+    Column(Modifier.systemBarsPadding()) {
         Row {
             if (cards.isEmpty()) {
                 PlaceholderRender(

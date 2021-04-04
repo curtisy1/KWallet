@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.insets.systemBarsPadding
 import eu.curtisy.kwallet.data.repositories.PreviewCardRepositoryImpl
 import eu.curtisy.kwallet.ui.components.appbars.TopNavBar
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
@@ -26,6 +29,7 @@ fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
     val (cardState, saveCardState) = remember { mutableStateOf(viewModel.selectedCard) }
 
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         topBar = {
             TopNavBar(
                 text = "Create new card",
