@@ -18,6 +18,7 @@ import timber.log.Timber
 
 @Composable
 fun CardContent(
+    modifier: Modifier = Modifier,
     card: Card,
     isEdit: Boolean = false,
     updateCardFun: (card: Card) -> Unit = { }
@@ -36,7 +37,7 @@ fun CardContent(
         condition = isFrontVisible,
     )
 
-    Column {
+    Column(modifier = modifier) {
         CardView(
             modifier = Modifier.graphicsLayer(rotationY = cardRotation),
             backgroundColor = card.color.toColor(),
@@ -195,7 +196,7 @@ fun CardBackLayer(
 @Preview
 private fun CardContentPreview() {
     CardContent(
-        Card(
+        card = Card(
             iban = "DE 1234567890",
             isVisa = true,
             bic = "BELADEBXXX",

@@ -1,14 +1,13 @@
 package eu.curtisy.kwallet.ui.screens.card
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,17 +35,22 @@ fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
                 onBackPressed = { navController.navigate(AppRoutes.CARD_OVERVIEW) })
         },
         content = {
-            Column {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+            ) {
                 CardContent(
+                    modifier = Modifier.align(Alignment.Center),
                     card = cardState!!,
                     isEdit = true,
                     updateCardFun = saveCardState
                 )
                 Spacer(Modifier.height(20.dp))
-                TextButton(onClick = {
-                    viewModel.saveCard(cardState)
-                    navController.navigate(AppRoutes.CARD_OVERVIEW)
-                }) {
+                TextButton(
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    onClick = {
+                        viewModel.saveCard(cardState)
+                        navController.navigate(AppRoutes.CARD_OVERVIEW)
+                    }) {
                     Text("Save card")
                 }
             }

@@ -31,7 +31,7 @@ fun Overview(navController: NavHostController, viewModel: CardViewModel) {
                 HorizontalList(
                     items = cards,
                     generatorFunc = {
-                        CardContent(it)
+                        CardContent(card = it)
                         Spacer(Modifier.width(5.dp))
 
                         if (cards.indexOf(it) == cards.size - 1) {
