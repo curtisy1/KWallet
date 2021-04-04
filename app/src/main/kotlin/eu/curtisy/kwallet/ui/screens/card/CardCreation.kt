@@ -1,9 +1,9 @@
 package eu.curtisy.kwallet.ui.screens.card
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,13 +45,14 @@ fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
                     updateCardFun = saveCardState
                 )
                 Spacer(Modifier.height(20.dp))
-                TextButton(
+                FloatingActionButton(
                     modifier = Modifier.align(Alignment.BottomEnd),
                     onClick = {
                         viewModel.saveCard(cardState)
                         navController.navigate(AppRoutes.CARD_OVERVIEW)
-                    }) {
-                    Text("Save card")
+                    }
+                ) {
+                    Icon(Icons.Filled.Save, "Save card")
                 }
             }
         }
