@@ -8,7 +8,7 @@ object Dependencies {
     }
 
     object Android {
-        const val gradle = "com.android.tools.build:gradle:7.0.0-alpha12"
+        const val gradle = "com.android.tools.build:gradle:7.0.0-alpha13"
         const val material = "com.google.android.material:material:1.3.0"
     }
 
