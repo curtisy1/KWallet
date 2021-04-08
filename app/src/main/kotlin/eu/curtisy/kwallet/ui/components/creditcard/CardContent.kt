@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,8 +47,8 @@ fun CardContent(
                 isFrontVisible = !isFrontVisible
             }
         ) {
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
+            Box(
+                modifier = Modifier.fillMaxSize()
             ) {
                 CardFrontLayer(
                     modifier = Modifier.graphicsLayer(alpha = frontLayerAlpha),
@@ -73,12 +74,14 @@ fun CardFrontLayer(
     isEdit: Boolean,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (cardNumber, _, _, _, _, validMonth, validYear, _, isVisa) = card
+    val (cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
 
-    Column(
-        modifier = modifier.padding(start = 5.dp)
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(5.dp)
     ) {
-        Column {
+        Column(modifier = Modifier.align(Alignment.TopStart)) {
             if (isEdit) {
                 TextButton(onClick = {
                     updateCardFun(card.copy(isVisa = !isVisa))
@@ -89,8 +92,7 @@ fun CardFrontLayer(
                 Text(text = if (isVisa) "VISA" else "MasterCard")
             }
         }
-        Spacer(modifier = Modifier.height(25.dp))
-        Column {
+        Column(modifier = Modifier.align(Alignment.Center)) {
             if (isEdit) {
                 BasicTextField(
                     value = cardNumber.toString(),
@@ -101,7 +103,29 @@ fun CardFrontLayer(
                         }
                     }
                 )
-                Row {
+            } else {
+                Text(
+                    text = cardNumber.toString(),
+                )
+            }
+        }
+        Column(modifier = Modifier.align(Alignment.BottomStart)) {
+            if (isEdit) {
+                BasicTextField(
+                    value = fullName,
+                    onValueChange = {
+                        updateCardFun(card.copy(fullName = it))
+                    }
+                )
+            } else {
+                Text(
+                    text = fullName,
+                )
+            }
+        }
+        Column(modifier = Modifier.align(Alignment.BottomEnd)) {
+            if (isEdit) {
+                Box(modifier = Modifier.fillMaxWidth(0.4f)) {
                     BasicTextField(
                         value = validMonth.toString(),
                         onValueChange = {
@@ -126,13 +150,9 @@ fun CardFrontLayer(
                 }
             } else {
                 Text(
-                    text = cardNumber.toString(),
-                )
-                Text(
                     text = "${validMonth}/${validYear}",
                 )
             }
-
         }
     }
 }
@@ -145,10 +165,12 @@ fun CardBackLayer(
     updateCardFun: (card: Card) -> Unit,
 ) {
     val (_, _, cvc, iban, bic) = card
-    Column(
-        modifier = modifier.padding(start = 5.dp)
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(5.dp)
     ) {
-        Column {
+        Column(modifier = Modifier.align(Alignment.TopStart)) {
             if (isEdit) {
                 BasicTextField(
                     value = iban,
@@ -162,8 +184,7 @@ fun CardBackLayer(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(25.dp))
-        Column() {
+        Column(modifier = Modifier.align(Alignment.BottomStart)) {
             if (isEdit) {
                 BasicTextField(
                     value = bic,
@@ -171,6 +192,14 @@ fun CardBackLayer(
                         updateCardFun(card.copy(bic = it))
                     }
                 )
+            } else {
+                Text(
+                    text = bic,
+                )
+            }
+        }
+        Column(modifier = Modifier.align(Alignment.BottomEnd)) {
+            if (isEdit) {
                 BasicTextField(
                     value = cvc.toString(),
                     onValueChange = {
@@ -181,9 +210,6 @@ fun CardBackLayer(
                     }
                 )
             } else {
-                Text(
-                    text = bic,
-                )
                 Text(
                     text = cvc.toString(),
                 )
