@@ -5,6 +5,7 @@ object Dependencies {
         private const val path = "com.google.accompanist"
 
         const val insets = "$path:accompanist-insets:$version"
+        const val flowLayout = "$path:accompanist-flowlayout:$version"
     }
 
     object Android {

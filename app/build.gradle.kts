@@ -92,7 +92,8 @@ dependencies {
     api(Dependencies.AndroidX.LifeCycle.extensions)
     api(Dependencies.AndroidX.LifeCycle.livedata)
 
-    api(Dependencies.Accompanist.insets)
+    implementation(Dependencies.Accompanist.insets)
+    implementation(Dependencies.Accompanist.flowLayout)
 
     implementation(Dependencies.Koin.core)
     implementation(Dependencies.Koin.coreExt)
