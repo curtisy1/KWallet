@@ -25,9 +25,9 @@ class CardViewModel(
             iban = "XX 1234567890",
             isVisa = true,
             bic = "XXXX",
-            fullName = "Add something here",
-            cardNumber = 0,
-            cvc = 0,
+            fullName = "Cardholder name",
+            cardNumber = 1234567890,
+            cvc = 123,
             validMonth = 1,
             validYear = 21,
             color = "#FFFFFF"

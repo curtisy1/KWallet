@@ -76,6 +76,9 @@ fun CardFrontLayer(
 ) {
     val (cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
 
+    // TODO: Ideally this would be 3 Columns with 1 row each
+    // Or 1 Column with 3 rows.. Both don't seem to work though
+    // Fiddle around more once the initial state of design is done
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -125,8 +128,9 @@ fun CardFrontLayer(
         }
         Column(modifier = Modifier.align(Alignment.BottomEnd)) {
             if (isEdit) {
-                Box(modifier = Modifier.fillMaxWidth(0.4f)) {
+                Row {
                     BasicTextField(
+                        modifier = Modifier.fillMaxWidth(0.05f),
                         value = validMonth.toString(),
                         onValueChange = {
                             val newValidMonth = it.toShortOrNull()
@@ -139,6 +143,7 @@ fun CardFrontLayer(
                         text = "/",
                     )
                     BasicTextField(
+                        modifier = Modifier.fillMaxWidth(0.1f),
                         value = validYear.toString(),
                         onValueChange = {
                             val newValidYear = it.toIntOrNull()
