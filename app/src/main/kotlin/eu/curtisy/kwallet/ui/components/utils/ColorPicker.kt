@@ -52,6 +52,7 @@ val ColorPickerColors = listOf(
 @Composable
 fun ColorPicker(
     modifier: Modifier = Modifier,
+    buttonSize: Int = 40,
     selectedColor: Color,
     onColorSelected: (color: Color) -> Unit,
     open: Boolean,
@@ -64,10 +65,11 @@ fun ColorPicker(
             crossAxisSpacing = 4.dp,
             mainAxisSpacing = 4.dp
         ) {
-            ColorPickerToggleButton(open, onOpen)
+            ColorPickerToggleButton(buttonSize, open, onOpen)
             if(open) {
                 ColorPickerColors.distinct().forEach { color ->
                     ColorItem(
+                        pickerItemSize = buttonSize,
                         selected = color == selectedColor,
                         color = color,
                         onClick = { onColorSelected(color) }
@@ -80,6 +82,7 @@ fun ColorPicker(
 
 @Composable
 fun ColorItem(
+    pickerItemSize: Int = 40,
     selected: Boolean,
     color: Color,
     onClick: () -> Unit
@@ -88,15 +91,15 @@ fun ColorItem(
 
     Box(
         modifier = Modifier
-            .padding(4.dp)
+            .padding((pickerItemSize / 10).dp)
             .clip(CircleShape)
-            .size(40.dp)
+            .size(pickerItemSize.dp)
             .clickable(onClick = onClick)
     ) {
         // Transparent background pattern
         Box(
             modifier = Modifier
-                .width(20.dp)
+                .width((pickerItemSize / 2).dp)
                 .fillMaxHeight()
                 .background(grey400)
         )
@@ -129,13 +132,14 @@ fun ColorItem(
 
 @Composable
 fun ColorPickerToggleButton(
+    buttonSize: Int = 40,
     open: Boolean,
     onOpen: () -> Unit,
 ) {
     var buttonModifier = Modifier
-        .padding(4.dp)
+        .padding((buttonSize / 10).dp)
         .clip(CircleShape)
-        .size(40.dp)
+        .size(buttonSize.dp)
     if (open) {
         buttonModifier = buttonModifier.background(MaterialTheme.colors.background)
     }

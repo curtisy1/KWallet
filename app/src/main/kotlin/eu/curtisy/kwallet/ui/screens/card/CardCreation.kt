@@ -18,15 +18,11 @@ import com.google.accompanist.insets.systemBarsPadding
 import eu.curtisy.kwallet.data.repositories.PreviewCardRepositoryImpl
 import eu.curtisy.kwallet.ui.components.appbars.TopNavBar
 import eu.curtisy.kwallet.ui.components.creditcard.CardContent
-import eu.curtisy.kwallet.ui.components.utils.ColorPicker
-import eu.curtisy.kwallet.ui.components.utils.ColorPickerColors
 import eu.curtisy.kwallet.ui.navigation.AppRoutes
 import eu.curtisy.kwallet.ui.screens.overview.CardViewModel
 
 @Composable
 fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
-    val (selectedColor, onColorSelected) = remember { mutableStateOf(ColorPickerColors[0]) }
-    val (colorPickerOpen, onColorPickerOpen) = remember { mutableStateOf(false) }
     val (cardState, saveCardState) = remember { mutableStateOf(viewModel.selectedCard) }
 
     Scaffold(
@@ -46,18 +42,6 @@ fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
                         card = cardState!!,
                         isEdit = true,
                         updateCardFun = saveCardState
-                    )
-                }
-                Spacer(Modifier.height(20.dp))
-                Column(modifier = Modifier.align(Alignment.Center)) {
-                    ColorPicker(
-                        selectedColor = selectedColor,
-                        onColorSelected = onColorSelected,
-                        modifier = Modifier.padding(12.dp),
-                        open = colorPickerOpen,
-                        onOpen = {
-                            onColorPickerOpen(!colorPickerOpen)
-                        }
                     )
                 }
                 Spacer(Modifier.height(20.dp))

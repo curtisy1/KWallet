@@ -15,6 +15,7 @@ import eu.curtisy.kwallet.extensions.toColor
 import eu.curtisy.kwallet.ui.animations.fadingAlpha
 import eu.curtisy.kwallet.ui.animations.yAxisRotation
 import eu.curtisy.kwallet.ui.components.CardView
+import eu.curtisy.kwallet.ui.components.utils.ColorPicker
 import timber.log.Timber
 
 @Composable
@@ -74,7 +75,9 @@ fun CardFrontLayer(
     isEdit: Boolean,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
+    val (cardNumber, fullName, _, _, _, validMonth, validYear, color, isVisa) = card
+    val (selectedColor, onColorSelected) = remember { mutableStateOf(color.toColor()) }
+    val (colorPickerOpen, onColorPickerOpen) = remember { mutableStateOf(false) }
 
     // TODO: Ideally this would be 3 Columns with 1 row each
     // Or 1 Column with 3 rows.. Both don't seem to work though
@@ -94,6 +97,20 @@ fun CardFrontLayer(
             } else {
                 Text(text = if (isVisa) "VISA" else "MasterCard")
             }
+        }
+        Column(modifier = Modifier.align(Alignment.TopEnd)) {
+            ColorPicker(
+                buttonSize = 20,
+                selectedColor = selectedColor,
+                onColorSelected = {
+                    onColorSelected(it)
+                    updateCardFun(card.copy(color = it.toString()))
+                },
+                open = colorPickerOpen,
+                onOpen = {
+                    onColorPickerOpen(!colorPickerOpen)
+                }
+            )
         }
         Column(modifier = Modifier.align(Alignment.Center)) {
             if (isEdit) {
