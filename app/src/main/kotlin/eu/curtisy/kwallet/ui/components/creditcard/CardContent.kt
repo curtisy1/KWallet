@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.curtisy.kwallet.data.Card
 import eu.curtisy.kwallet.extensions.toColor
+import eu.curtisy.kwallet.extensions.toHEX
 import eu.curtisy.kwallet.ui.animations.fadingAlpha
 import eu.curtisy.kwallet.ui.animations.yAxisRotation
 import eu.curtisy.kwallet.ui.components.CardView
@@ -51,18 +52,21 @@ fun CardContent(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                CardFrontLayer(
-                    modifier = Modifier.graphicsLayer(alpha = frontLayerAlpha),
-                    card = card,
-                    isEdit = isEdit,
-                    updateCardFun = updateCardFun
-                )
-                CardBackLayer(
-                    modifier = Modifier.graphicsLayer(alpha = backLayerAlpha),
-                    card = card,
-                    isEdit = isEdit,
-                    updateCardFun = updateCardFun
-                )
+                if (isFrontVisible) {
+                    CardFrontLayer(
+                        modifier = Modifier.graphicsLayer(alpha = frontLayerAlpha),
+                        card = card,
+                        isEdit = isEdit,
+                        updateCardFun = updateCardFun
+                    )
+                } else {
+                    CardBackLayer(
+                        modifier = Modifier.graphicsLayer(alpha = backLayerAlpha),
+                        card = card,
+                        isEdit = isEdit,
+                        updateCardFun = updateCardFun
+                    )
+                }
             }
         }
     }
@@ -87,93 +91,108 @@ fun CardFrontLayer(
             .fillMaxSize()
             .padding(5.dp)
     ) {
-        Column(modifier = Modifier.align(Alignment.TopStart)) {
-            if (isEdit) {
-                TextButton(onClick = {
-                    updateCardFun(card.copy(isVisa = !isVisa))
-                }) {
-                    Text(text = if (isVisa) "VISA" else "MasterCard")
-                }
-            } else {
-                Text(text = if (isVisa) "VISA" else "MasterCard")
-            }
-        }
-        Column(modifier = Modifier.align(Alignment.TopEnd)) {
+        if (colorPickerOpen) {
             ColorPicker(
                 buttonSize = 20,
                 selectedColor = selectedColor,
                 onColorSelected = {
                     onColorSelected(it)
-                    updateCardFun(card.copy(color = it.toString()))
+                    updateCardFun(card.copy(color = it.toHEX()))
                 },
                 open = colorPickerOpen,
                 onOpen = {
                     onColorPickerOpen(!colorPickerOpen)
                 }
             )
-        }
-        Column(modifier = Modifier.align(Alignment.Center)) {
-            if (isEdit) {
-                BasicTextField(
-                    value = cardNumber.toString(),
-                    onValueChange = {
-                        val newCardNumber = it.toLongOrNull()
-                        if (newCardNumber != null) {
-                            updateCardFun(card.copy(cardNumber = newCardNumber))
-                        }
+        } else {
+            Column(modifier = Modifier.align(Alignment.TopStart)) {
+                if (isEdit) {
+                    TextButton(onClick = {
+                        updateCardFun(card.copy(isVisa = !isVisa))
+                    }) {
+                        Text(text = if (isVisa) "VISA" else "MasterCard")
+                    }
+                } else {
+                    Text(text = if (isVisa) "VISA" else "MasterCard")
+                }
+            }
+            Column(modifier = Modifier.align(Alignment.TopEnd)) {
+                ColorPicker(
+                    buttonSize = 20,
+                    selectedColor = selectedColor,
+                    onColorSelected = {
+                        onColorSelected(it)
+                        updateCardFun(card.copy(color = it.toString()))
+                    },
+                    open = colorPickerOpen,
+                    onOpen = {
+                        onColorPickerOpen(!colorPickerOpen)
                     }
                 )
-            } else {
-                Text(
-                    text = cardNumber.toString(),
-                )
             }
-        }
-        Column(modifier = Modifier.align(Alignment.BottomStart)) {
-            if (isEdit) {
-                BasicTextField(
-                    value = fullName,
-                    onValueChange = {
-                        updateCardFun(card.copy(fullName = it))
-                    }
-                )
-            } else {
-                Text(
-                    text = fullName,
-                )
-            }
-        }
-        Column(modifier = Modifier.align(Alignment.BottomEnd)) {
-            if (isEdit) {
-                Row {
+            Column(modifier = Modifier.align(Alignment.Center)) {
+                if (isEdit) {
                     BasicTextField(
-                        modifier = Modifier.fillMaxWidth(0.05f),
-                        value = validMonth.toString(),
+                        value = cardNumber.toString(),
                         onValueChange = {
-                            val newValidMonth = it.toShortOrNull()
-                            if (newValidMonth != null) {
-                                updateCardFun(card.copy(validMonth = newValidMonth))
+                            val newCardNumber = it.toLongOrNull()
+                            if (newCardNumber != null) {
+                                updateCardFun(card.copy(cardNumber = newCardNumber))
                             }
                         }
                     )
+                } else {
                     Text(
-                        text = "/",
-                    )
-                    BasicTextField(
-                        modifier = Modifier.fillMaxWidth(0.1f),
-                        value = validYear.toString(),
-                        onValueChange = {
-                            val newValidYear = it.toIntOrNull()
-                            if (newValidYear != null) {
-                                updateCardFun(card.copy(validYear = newValidYear))
-                            }
-                        }
+                        text = cardNumber.toString(),
                     )
                 }
-            } else {
-                Text(
-                    text = "${validMonth}/${validYear}",
-                )
+            }
+            Column(modifier = Modifier.align(Alignment.BottomStart)) {
+                if (isEdit) {
+                    BasicTextField(
+                        value = fullName,
+                        onValueChange = {
+                            updateCardFun(card.copy(fullName = it))
+                        }
+                    )
+                } else {
+                    Text(
+                        text = fullName,
+                    )
+                }
+            }
+            Column(modifier = Modifier.align(Alignment.BottomEnd)) {
+                if (isEdit) {
+                    Row {
+                        BasicTextField(
+                            modifier = Modifier.fillMaxWidth(0.05f),
+                            value = validMonth.toString(),
+                            onValueChange = {
+                                val newValidMonth = it.toShortOrNull()
+                                if (newValidMonth != null) {
+                                    updateCardFun(card.copy(validMonth = newValidMonth))
+                                }
+                            }
+                        )
+                        Text(
+                            text = "/",
+                        )
+                        BasicTextField(
+                            modifier = Modifier.fillMaxWidth(0.1f),
+                            value = validYear.toString(),
+                            onValueChange = {
+                                val newValidYear = it.toIntOrNull()
+                                if (newValidYear != null) {
+                                    updateCardFun(card.copy(validYear = newValidYear))
+                                }
+                            }
+                        )
+                    }
+                } else {
+                    Text(
+                        text = "${validMonth}/${validYear}",
+                    )
+                }
             }
         }
     }
