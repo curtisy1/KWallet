@@ -3,12 +3,11 @@ package eu.curtisy.kwallet.ui.components.creditcard
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.More
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +28,8 @@ fun CardContent(
     modifier: Modifier = Modifier,
     card: Card,
     isEdit: Boolean = false,
+    colorPickerOpen: Boolean = false,
+    actionIcon: @Composable () -> Unit,
     updateCardFun: (card: Card) -> Unit = { }
 ) {
     var isFrontVisible by remember {
@@ -64,6 +65,8 @@ fun CardContent(
                     modifier = layoutModifier,
                     card = card,
                     isEdit = isEdit,
+                    contentVisible = !colorPickerOpen,
+                    actionIcon = actionIcon,
                     updateCardFun = updateCardFun
                 )
             } else {
@@ -83,27 +86,14 @@ fun CardFrontLayer(
     modifier: Modifier = Modifier,
     card: Card,
     isEdit: Boolean,
+    contentVisible: Boolean = true,
+    actionIcon: @Composable () -> Unit,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (cardNumber, fullName, _, _, _, validMonth, validYear, color, isVisa) = card
-    val (selectedColor, onColorSelected) = remember { mutableStateOf(color.toColor()) }
-    val (colorPickerOpen, onColorPickerOpen) = remember { mutableStateOf(false) }
+    val (cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
 
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
-        if (colorPickerOpen && isEdit) {
-            ColorPicker(
-                buttonSize = 20,
-                selectedColor = selectedColor,
-                onColorSelected = {
-                    onColorSelected(it)
-                    updateCardFun(card.copy(color = it.toHEX()))
-                },
-                open = colorPickerOpen,
-                onOpen = {
-                    onColorPickerOpen(!colorPickerOpen)
-                }
-            )
-        } else {
+        if (contentVisible) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
@@ -115,30 +105,7 @@ fun CardFrontLayer(
                     }) {
                     Text(text = if (isVisa) "VISA" else "MasterCard")
                 }
-                if (isEdit) {
-                    ColorPicker(
-                        buttonSize = 20,
-                        selectedColor = selectedColor,
-                        onColorSelected = {
-                            onColorSelected(it)
-                            updateCardFun(card.copy(color = it.toString()))
-                        },
-                        open = colorPickerOpen,
-                        onOpen = {
-                            onColorPickerOpen(!colorPickerOpen)
-                        }
-                    )
-                } else {
-                    IconButton(
-                        onClick = { /*TODO*/ },
-                        modifier = Modifier
-                            .padding(2.dp)
-                            .clip(CircleShape)
-                            .size(20.dp)
-                    ) {
-                        Icon(Icons.Default.More, "Options")
-                    }
-                }
+                actionIcon()
             }
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 BasicTextField(
@@ -193,6 +160,8 @@ fun CardFrontLayer(
                     )
                 }
             }
+        } else {
+            actionIcon()
         }
     }
 }
@@ -255,7 +224,8 @@ private fun CardContentPreview() {
             validMonth = 12,
             validYear = 21,
             color = "#FFFFFF"
-        )
+        ),
+        actionIcon = { },
     )
 }
 
@@ -275,6 +245,7 @@ private fun CardFrontLayerPreview() {
             color = "#FFFFFF"
         ),
         isEdit = true,
+        actionIcon = { },
         updateCardFun = { }
     )
 }

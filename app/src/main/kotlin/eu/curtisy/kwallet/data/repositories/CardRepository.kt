@@ -7,5 +7,5 @@ interface CardRepository {
     suspend fun getAll(): Flow<List<Card>>
     suspend fun getCard(cardNumber: Short): Flow<Card?>
     fun insertOrUpdate(card: Card)
-    fun delete(cardNumber: Short)
+    fun delete(cardNumber: Long)
 }

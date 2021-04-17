@@ -24,8 +24,8 @@ class CardRepositoryImpl(private val queries: CardDetailsQueries) : CardReposito
         queries.insertOrUpdateCard(card)
     }
 
-    override fun delete(cardNumber: Short) {
-        queries.deleteCard(cardNumber.toLong())
+    override fun delete(cardNumber: Long) {
+        queries.deleteCard(cardNumber)
     }
 }
 
@@ -37,6 +37,6 @@ class PreviewCardRepositoryImpl() : CardRepository {
     override fun insertOrUpdate(card: Card) {
     }
 
-    override fun delete(cardNumber: Short) {
+    override fun delete(cardNumber: Long) {
     }
 }

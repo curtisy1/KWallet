@@ -40,6 +40,10 @@ class CardViewModel(
         cardRepository.insertOrUpdate(card)
     }
 
+    fun deleteCard(card: Card) {
+        cardRepository.delete(card.cardNumber)
+    }
+
     private fun getAllCreditCards() {
         viewModelScope.launch {
             cardRepository.getAll().collect { result ->

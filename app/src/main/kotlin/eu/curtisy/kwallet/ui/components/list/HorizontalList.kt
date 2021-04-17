@@ -70,7 +70,7 @@ private fun HorizontalListPreview() {
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
-        CardContent(card = it)
+        CardContent(card = it, actionIcon = { })
         Spacer(Modifier.width(5.dp))
     })
 }

@@ -1,7 +1,12 @@
 package eu.curtisy.kwallet.ui.screens.overview
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +36,9 @@ fun Overview(navController: NavHostController, viewModel: CardViewModel) {
                 HorizontalList(
                     items = cards,
                     generatorFunc = {
-                        CardContent(card = it)
+                        CardContent(card = it, actionIcon = {
+                            ViewActionIcon(it, viewModel, navController)
+                        })
                         Spacer(Modifier.width(5.dp))
 
                         if (cards.indexOf(it) == cards.size - 1) {
@@ -50,7 +57,7 @@ fun Overview(navController: NavHostController, viewModel: CardViewModel) {
 }
 
 @Composable
-fun PlaceholderRender(viewModel: CardViewModel, navController: NavHostController): Unit {
+fun PlaceholderRender(viewModel: CardViewModel, navController: NavHostController) {
     Placeholder(
         onClick = {
             viewModel.addCard()
@@ -96,6 +103,37 @@ private fun HomePreview() {
         navController = rememberNavController(),
         viewModel = viewModel
     )
+}
+
+@Composable
+fun ViewActionIcon(card: Card, viewModel: CardViewModel, navController: NavHostController) {
+    val (menuExpanded, onMenuExpanded) = remember { mutableStateOf(false) }
+
+    Box(modifier = Modifier) {
+        IconButton(
+            onClick = { onMenuExpanded(!menuExpanded) },
+            modifier = Modifier
+                .padding(2.dp)
+                .size(20.dp)
+        ) {
+            Icon(Icons.Default.MoreHoriz, "Options")
+        }
+        DropdownMenu(expanded = menuExpanded, onDismissRequest = { onMenuExpanded(false) }) {
+            DropdownMenuItem(onClick = {
+                onMenuExpanded(false)
+                viewModel.selectedCard = card
+                navController.navigate(AppRoutes.CARD_CREATION)
+            }) {
+                Text("Edit")
+            }
+            DropdownMenuItem(onClick = {
+                onMenuExpanded(false)
+                viewModel.deleteCard(card)
+            }) {
+                Text("Delete")
+            }
+        }
+    }
 }
 
 @Composable
