@@ -1,26 +1,21 @@
 package eu.curtisy.kwallet.ui.components.creditcard
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.More
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.curtisy.kwallet.data.Card
 import eu.curtisy.kwallet.extensions.toColor
-import eu.curtisy.kwallet.extensions.toHEX
 import eu.curtisy.kwallet.ui.animations.fadingAlpha
 import eu.curtisy.kwallet.ui.animations.yAxisRotation
 import eu.curtisy.kwallet.ui.components.CardView
-import eu.curtisy.kwallet.ui.components.utils.ColorPicker
 import timber.log.Timber
 
 @Composable
@@ -107,7 +102,11 @@ fun CardFrontLayer(
                 }
                 actionIcon()
             }
-            Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+            ) {
                 BasicTextField(
                     readOnly = !isEdit,
                     enabled = isEdit,
@@ -120,11 +119,11 @@ fun CardFrontLayer(
                     }
                 )
             }
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Row(modifier = Modifier.height(IntrinsicSize.Min)) {
                 BasicTextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.Start),
                     readOnly = !isEdit,
                     enabled = isEdit,
                     value = fullName,
@@ -132,8 +131,13 @@ fun CardFrontLayer(
                         updateCardFun(card.copy(fullName = it))
                     }
                 )
-                Row {
+                Row(
+                    modifier = modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.End)
+                ) {
                     BasicTextField(
+                        modifier = Modifier.width(IntrinsicSize.Min),
                         readOnly = !isEdit,
                         enabled = isEdit,
                         value = validMonth.toString(),
@@ -145,9 +149,11 @@ fun CardFrontLayer(
                         }
                     )
                     Text(
+                        modifier = Modifier.width(IntrinsicSize.Min),
                         text = "/",
                     )
                     BasicTextField(
+                        modifier = Modifier.width(IntrinsicSize.Min),
                         readOnly = !isEdit,
                         enabled = isEdit,
                         value = validYear.toString(),
@@ -218,14 +224,18 @@ private fun CardContentPreview() {
             iban = "DE 1234567890",
             isVisa = true,
             bic = "BELADEBXXX",
-            fullName = "Some Cool Dude",
+            fullName = "Alexander Oberländer",
             cardNumber = 1234567890,
             cvc = 123,
             validMonth = 12,
             validYear = 21,
             color = "#FFFFFF"
         ),
-        actionIcon = { },
+        actionIcon = {
+            IconButton(onClick = { }) {
+                Icon(Icons.Default.MoreHoriz, "More")
+            }
+        },
     )
 }
 
