@@ -21,13 +21,15 @@ class CardViewModel(
     }
 
     fun addCard() {
+        val id = if(creditCards.isEmpty()) 1 else creditCards.last().id + 1
         val dummyCard = Card(
+            id = id,
             iban = "XX 1234567890",
             isVisa = true,
             bic = "XXXX",
-            fullName = "Add something here",
-            cardNumber = 0,
-            cvc = 0,
+            fullName = "Cardholder name",
+            cardNumber = 1234567890,
+            cvc = 123,
             validMonth = 1,
             validYear = 21,
             color = "#FFFFFF"
@@ -38,6 +40,10 @@ class CardViewModel(
 
     fun saveCard(card: Card) {
         cardRepository.insertOrUpdate(card)
+    }
+
+    fun deleteCard(card: Card) {
+        cardRepository.delete(card.cardNumber)
     }
 
     private fun getAllCreditCards() {

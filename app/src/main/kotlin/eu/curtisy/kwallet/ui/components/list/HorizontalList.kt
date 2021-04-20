@@ -35,6 +35,7 @@ fun <T> HorizontalList(
 private fun HorizontalListPreview() {
     val creditCards = listOf(
         Card(
+            1,
             1234567890,
             "One",
             123,
@@ -46,6 +47,7 @@ private fun HorizontalListPreview() {
             true
         ),
         Card(
+            1,
             1234567890,
             "One",
             123,
@@ -57,6 +59,7 @@ private fun HorizontalListPreview() {
             false
         ),
         Card(
+            1,
             1234567890,
             "One",
             123,
@@ -70,7 +73,7 @@ private fun HorizontalListPreview() {
     )
 
     HorizontalList(items = creditCards, generatorFunc = {
-        CardContent(it)
+        CardContent(card = it, actionIcon = { })
         Spacer(Modifier.width(5.dp))
     })
 }

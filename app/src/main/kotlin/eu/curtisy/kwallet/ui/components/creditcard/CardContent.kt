@@ -2,9 +2,11 @@ package eu.curtisy.kwallet.ui.components.creditcard
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,8 +20,11 @@ import timber.log.Timber
 
 @Composable
 fun CardContent(
+    modifier: Modifier = Modifier,
     card: Card,
     isEdit: Boolean = false,
+    colorPickerOpen: Boolean = false,
+    actionIcon: @Composable () -> Unit,
     updateCardFun: (card: Card) -> Unit = { }
 ) {
     var isFrontVisible by remember {
@@ -36,7 +41,7 @@ fun CardContent(
         condition = isFrontVisible,
     )
 
-    Column {
+    Column(modifier = modifier) {
         CardView(
             modifier = Modifier.graphicsLayer(rotationY = cardRotation),
             backgroundColor = card.color.toColor(),
@@ -45,17 +50,23 @@ fun CardContent(
                 isFrontVisible = !isFrontVisible
             }
         ) {
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
-            ) {
+            val layoutModifier = Modifier
+                .fillMaxSize()
+                .padding(5.dp)
+                .graphicsLayer(alpha = if (isFrontVisible) frontLayerAlpha else backLayerAlpha)
+
+            if (isFrontVisible) {
                 CardFrontLayer(
-                    modifier = Modifier.graphicsLayer(alpha = frontLayerAlpha),
+                    modifier = layoutModifier,
                     card = card,
                     isEdit = isEdit,
+                    contentVisible = !colorPickerOpen,
+                    actionIcon = actionIcon,
                     updateCardFun = updateCardFun
                 )
+            } else {
                 CardBackLayer(
-                    modifier = Modifier.graphicsLayer(alpha = backLayerAlpha),
+                    modifier = layoutModifier,
                     card = card,
                     isEdit = isEdit,
                     updateCardFun = updateCardFun
@@ -70,28 +81,35 @@ fun CardFrontLayer(
     modifier: Modifier = Modifier,
     card: Card,
     isEdit: Boolean,
+    contentVisible: Boolean = true,
+    actionIcon: @Composable () -> Unit,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (cardNumber, _, _, _, _, validMonth, validYear, _, isVisa) = card
+    val (_, cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
 
-    Column(
-        modifier = modifier.padding(start = 5.dp)
-    ) {
-        Column {
-            if (isEdit) {
-                TextButton(onClick = {
-                    updateCardFun(card.copy(isVisa = !isVisa))
-                }) {
+    Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
+        if (contentVisible) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TextButton(
+                    enabled = isEdit,
+                    onClick = {
+                        updateCardFun(card.copy(isVisa = !isVisa))
+                    }) {
                     Text(text = if (isVisa) "VISA" else "MasterCard")
                 }
-            } else {
-                Text(text = if (isVisa) "VISA" else "MasterCard")
+                actionIcon()
             }
-        }
-        Spacer(modifier = Modifier.height(25.dp))
-        Column {
-            if (isEdit) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+            ) {
                 BasicTextField(
+                    readOnly = !isEdit,
+                    enabled = isEdit,
                     value = cardNumber.toString(),
                     onValueChange = {
                         val newCardNumber = it.toLongOrNull()
@@ -100,8 +118,28 @@ fun CardFrontLayer(
                         }
                     }
                 )
-                Row {
+            }
+            Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+                BasicTextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.Start),
+                    readOnly = !isEdit,
+                    enabled = isEdit,
+                    value = fullName,
+                    onValueChange = {
+                        updateCardFun(card.copy(fullName = it))
+                    }
+                )
+                Row(
+                    modifier = modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.End)
+                ) {
                     BasicTextField(
+                        modifier = Modifier.width(IntrinsicSize.Min),
+                        readOnly = !isEdit,
+                        enabled = isEdit,
                         value = validMonth.toString(),
                         onValueChange = {
                             val newValidMonth = it.toShortOrNull()
@@ -111,9 +149,13 @@ fun CardFrontLayer(
                         }
                     )
                     Text(
+                        modifier = Modifier.width(IntrinsicSize.Min),
                         text = "/",
                     )
                     BasicTextField(
+                        modifier = Modifier.width(IntrinsicSize.Min),
+                        readOnly = !isEdit,
+                        enabled = isEdit,
                         value = validYear.toString(),
                         onValueChange = {
                             val newValidYear = it.toIntOrNull()
@@ -123,15 +165,9 @@ fun CardFrontLayer(
                         }
                     )
                 }
-            } else {
-                Text(
-                    text = cardNumber.toString(),
-                )
-                Text(
-                    text = "${validMonth}/${validYear}",
-                )
             }
-
+        } else {
+            actionIcon()
         }
     }
 }
@@ -143,51 +179,40 @@ fun CardBackLayer(
     isEdit: Boolean,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (_, _, cvc, iban, bic) = card
-    Column(
-        modifier = modifier.padding(start = 5.dp)
-    ) {
-        Column {
-            if (isEdit) {
-                BasicTextField(
-                    value = iban,
-                    onValueChange = {
-                        updateCardFun(card.copy(iban = it))
-                    }
-                )
-            } else {
-                Text(
-                    text = iban,
-                )
+    val (_, _, _, cvc, iban, bic) = card
+
+    Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
+        BasicTextField(
+            modifier = Modifier.fillMaxWidth(),
+            readOnly = !isEdit,
+            enabled = isEdit,
+            value = iban,
+            onValueChange = {
+                updateCardFun(card.copy(iban = it))
             }
+        )
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+            BasicTextField(
+                readOnly = !isEdit,
+                enabled = isEdit,
+                value = bic,
+                onValueChange = {
+                    updateCardFun(card.copy(bic = it))
+                },
+            )
         }
-        Spacer(modifier = Modifier.height(25.dp))
-        Column() {
-            if (isEdit) {
-                BasicTextField(
-                    value = bic,
-                    onValueChange = {
-                        updateCardFun(card.copy(bic = it))
-                    }
-                )
-                BasicTextField(
-                    value = cvc.toString(),
-                    onValueChange = {
-                        val newCvc = it.toShortOrNull()
-                        if (newCvc != null) {
-                            updateCardFun(card.copy(cvc = newCvc))
-                        }
-                    }
-                )
-            } else {
-                Text(
-                    text = bic,
-                )
-                Text(
-                    text = cvc.toString(),
-                )
+        BasicTextField(
+            modifier = Modifier.fillMaxWidth(),
+            readOnly = !isEdit,
+            enabled = isEdit,
+            value = cvc.toString(),
+            onValueChange = {
+                val newCvc = it.toShortOrNull()
+                if (newCvc != null) {
+                    updateCardFun(card.copy(cvc = newCvc))
+                }
             }
-        }
+        )
     }
 }
 
@@ -195,17 +220,23 @@ fun CardBackLayer(
 @Preview
 private fun CardContentPreview() {
     CardContent(
-        Card(
+        card = Card(
+            id = 1,
             iban = "DE 1234567890",
             isVisa = true,
             bic = "BELADEBXXX",
-            fullName = "Some Cool Dude",
+            fullName = "Alexander Oberländer",
             cardNumber = 1234567890,
             cvc = 123,
             validMonth = 12,
             validYear = 21,
             color = "#FFFFFF"
-        )
+        ),
+        actionIcon = {
+            IconButton(onClick = { }) {
+                Icon(Icons.Default.MoreHoriz, "More")
+            }
+        },
     )
 }
 
@@ -214,6 +245,7 @@ private fun CardContentPreview() {
 private fun CardFrontLayerPreview() {
     CardFrontLayer(
         card = Card(
+            id = 1,
             isVisa = true,
             fullName = "Some Cool Dude",
             cardNumber = 1234567890,
@@ -225,6 +257,7 @@ private fun CardFrontLayerPreview() {
             color = "#FFFFFF"
         ),
         isEdit = true,
+        actionIcon = { },
         updateCardFun = { }
     )
 }
@@ -234,6 +267,7 @@ private fun CardFrontLayerPreview() {
 private fun CardBackLayerPreview() {
     CardBackLayer(
         card = Card(
+            id = 1,
             isVisa = true,
             fullName = "Some Cool Dude",
             cardNumber = 1234567890,
