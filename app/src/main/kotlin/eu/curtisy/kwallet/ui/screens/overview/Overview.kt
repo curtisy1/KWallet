@@ -76,6 +76,7 @@ private fun HomePreview() {
 
     viewModel.creditCards = listOf(
         Card(
+            id = 1,
             iban = "DE 1234567890",
             cardNumber = 1234567890,
             isVisa = true,
@@ -87,6 +88,7 @@ private fun HomePreview() {
             color = "#FFFFFF",
         ),
         Card(
+            id = 1,
             iban = "DE 1234567890",
             cardNumber = 1234567890,
             isVisa = false,

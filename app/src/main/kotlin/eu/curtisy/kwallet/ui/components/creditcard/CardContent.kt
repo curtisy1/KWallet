@@ -85,7 +85,7 @@ fun CardFrontLayer(
     actionIcon: @Composable () -> Unit,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
+    val (_, cardNumber, fullName, _, _, _, validMonth, validYear, _, isVisa) = card
 
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
         if (contentVisible) {
@@ -179,7 +179,7 @@ fun CardBackLayer(
     isEdit: Boolean,
     updateCardFun: (card: Card) -> Unit,
 ) {
-    val (_, _, cvc, iban, bic) = card
+    val (_, _, _, cvc, iban, bic) = card
 
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
         BasicTextField(
@@ -221,6 +221,7 @@ fun CardBackLayer(
 private fun CardContentPreview() {
     CardContent(
         card = Card(
+            id = 1,
             iban = "DE 1234567890",
             isVisa = true,
             bic = "BELADEBXXX",
@@ -244,6 +245,7 @@ private fun CardContentPreview() {
 private fun CardFrontLayerPreview() {
     CardFrontLayer(
         card = Card(
+            id = 1,
             isVisa = true,
             fullName = "Some Cool Dude",
             cardNumber = 1234567890,
@@ -265,6 +267,7 @@ private fun CardFrontLayerPreview() {
 private fun CardBackLayerPreview() {
     CardBackLayer(
         card = Card(
+            id = 1,
             isVisa = true,
             fullName = "Some Cool Dude",
             cardNumber = 1234567890,

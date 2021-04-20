@@ -21,7 +21,9 @@ class CardViewModel(
     }
 
     fun addCard() {
+        val id = if(creditCards.isEmpty()) 1 else creditCards.last().id + 1
         val dummyCard = Card(
+            id = id,
             iban = "XX 1234567890",
             isVisa = true,
             bic = "XXXX",

@@ -1,4 +1,5 @@
 CREATE TABLE card(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     cardNumber INTEGER NOT NULL,
     fullName TEXT NOT NULL,
     cvc INTEGER AS Short NOT NULL,
@@ -19,12 +20,12 @@ FROM card;
 selectByCardNumber:
 SELECT *
 FROM card
-WHERE cardNumber = ?;
+WHERE id = ?;
 
 insertOrUpdateCard:
-INSERT OR REPLACE INTO card(cardNumber, fullName, cvc, iban, bic, validMonth, validYear, color, isVisa)
+INSERT OR REPLACE INTO card(id, cardNumber, fullName, cvc, iban, bic, validMonth, validYear, color, isVisa)
 VALUES ?;
 
 deleteCard:
 DELETE FROM card
-WHERE cardNumber = ?;
+WHERE id = ?;
