@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("com.cmgapps.licenses") version "2.1.0"
 }
 
 android {
@@ -114,4 +115,15 @@ ktlint {
     outputToConsole.set(true)
     outputColorName.set("RED")
     enableExperimentalRules.set(true)
+}
+
+licenses {
+    additionalProjects.plus(":data")
+    reports {
+        val baseDir = "$buildDir/../../third-party-licenses/"
+        markdown.enabled = true
+        markdown.destination = file("$baseDir/third-party-licenses.md")
+        html.enabled = true
+        html.destination = file("$baseDir/third-party-licenses.html")
+    }
 }
