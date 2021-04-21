@@ -55,4 +55,4 @@ Yes please! Contributions are always welcome. The code is probably a bit messy s
 ## License
 [MIT](LICENSE.md)
 
-For a full overview of dependencies and their licenses also see [third-party-licenses](third-party-licenses.md)
+For a full overview of dependencies and their licenses also see [third-party-licenses](/third-party-licenses)
