@@ -32,12 +32,11 @@ Under the hood, there's already a simple database structure, navigation is worki
 ## Planned features
 These are in the current order I plan to work on them. If you have any other ideas feel free to open an issue
 ### Current focus
-- Implement card editing functionality including saving a card
 - Think about different ways of presenting the card creation layer. A new screen seems overkill
 
 ### Future thoughts
 - Set up a GitHub action
-- UI overhaul, custom color scheme, material or glassmorph design
+- UI overhaul, custom color scheme, material or glassmorph design, animations and transitions
 - Add some tests
 - Make the whole project more modular
 - Add other types of cards, i.e. debit cards, insurance, ID?
