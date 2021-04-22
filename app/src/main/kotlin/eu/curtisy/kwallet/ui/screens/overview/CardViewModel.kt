@@ -43,7 +43,7 @@ class CardViewModel(
     }
 
     fun deleteCard(card: Card) {
-        cardRepository.delete(card.cardNumber)
+        cardRepository.delete(card.id)
     }
 
     private fun getAllCreditCards() {
