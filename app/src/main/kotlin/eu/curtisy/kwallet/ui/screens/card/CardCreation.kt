@@ -36,7 +36,7 @@ fun CardCreation(navController: NavHostController, viewModel: CardViewModel) {
         modifier = Modifier.systemBarsPadding(),
         topBar = {
             TopNavBar(
-                text = "Create new card",
+                text = if(viewModel.isEdit) "Edit card" else "Create new card",
                 onBackPressed = { navController.navigate(AppRoutes.CARD_OVERVIEW) })
         },
         content = {
