@@ -15,11 +15,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() {
-            content {
-                includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
-            }
-        }
     }
 }
 

@@ -1,20 +1,19 @@
 [versions]
-accompanist = "0.7.0"
-material = "1.3.0"
-androidx-appcompat = "1.3.0-beta01"
-androidx-core = "1.5.0-beta03"
-androidx-startup = "1.0.0"
-androidx-activity = "1.3.0-alpha04"
-androidx-compose = "1.0.0-beta02"
-androidx-constraintlayout = "1.0.0-alpha04"
-androidx-lifecycleExtensions = "2.2.0" # Deprecated remove once koin supports it
-androidx-lifecycle = "2.3.0"
-androidx-navigation = "1.0.0-alpha09"
-kotlin = "1.4.32"
-coroutines = "1.4.2"
-koin = "3.0.1-beta-1"
-sqldelight = "1.4.4"
-timber = "4.7.1"
+accompanist = "_"
+material = "_"
+androidx-appcompat = "_"
+androidx-core = "_"
+androidx-startup = "_"
+androidx-activity = "_"
+androidx-compose = "_"
+androidx-constraintlayout = "_"
+androidx-lifecycle = "_"
+androidx-navigation = "_"
+kotlin = "_"
+coroutines = "_"
+koin = "_"
+sqldelight = "_"
+timber = "_"
 
 [libraries]
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
@@ -33,7 +32,6 @@ androidx-material-icons-extended-compose = { module = "androidx.compose.material
 androidx-ui-compose = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
 androidx-ui-tooling-compose = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout" }
-androidx-lifecycleExtensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx-lifecycleExtensions" }
 androidx-lifecycleLivedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
@@ -60,7 +58,7 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 [bundles]
 accompanist = ["accompanist-insets", "accompanist-flowlayout"]
 androidx-compose = ["androidx-material-compose", "androidx-material-icons-core-compose", "androidx-material-icons-extended-compose", "androidx-ui-compose", "androidx-ui-tooling-compose"]
-androidx-lifecycle = ["androidx-lifecycleLivedata", "androidx-lifecycleRuntime", "androidx-lifecycleViewmodel", "androidx-lifecycleExtensions"]
+androidx-lifecycle = ["androidx-lifecycleLivedata", "androidx-lifecycleRuntime", "androidx-lifecycleViewmodel"]
 coroutines = ["coroutines-android", "coroutines-core"]
 koin = ["koin-android", "koin-androidExt", "koin-androidx-compose", "koin-core", "koin-coreExt", "koin-androidx-workmanager"]
 sqldelight = ["sqldelight-android-driver", "sqldelight-coroutines-extensions", "sqldelight-runtime"]
