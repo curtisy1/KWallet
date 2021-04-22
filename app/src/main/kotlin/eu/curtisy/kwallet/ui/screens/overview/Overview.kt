@@ -124,6 +124,7 @@ fun ViewActionIcon(card: Card, viewModel: CardViewModel, navController: NavHostC
             DropdownMenuItem(onClick = {
                 onMenuExpanded(false)
                 viewModel.selectedCard = card
+                viewModel.isEdit = true
                 navController.navigate(AppRoutes.CARD_CREATION)
             }) {
                 Text("Edit")

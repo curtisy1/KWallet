@@ -36,9 +36,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
-    implementation(Dependencies.SqlDelight.runtime)
-    implementation(Dependencies.SqlDelight.android)
-    implementation(Dependencies.SqlDelight.coroutineExtensions)
+    implementation(libs.bundles.sqldelight)
 }
 
 sqldelight {

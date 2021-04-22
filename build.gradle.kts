@@ -5,9 +5,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(Dependencies.Android.gradle)
-        classpath(Dependencies.Kotlin.gradle)
-        classpath(Dependencies.SqlDelight.gradle)
+        classpath("com.android.tools.build:gradle:7.0.0-alpha14")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.4.4")
     }
 }
 
@@ -15,11 +15,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() {
-            content {
-                includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
-            }
-        }
     }
 }
 

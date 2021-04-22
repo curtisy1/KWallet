@@ -16,27 +16,21 @@ class CardRepositoryImpl(private val queries: CardDetailsQueries) : CardReposito
         queries.selectAllCards().asFlow().mapToList()
     }
 
-    override suspend fun getCard(cardNumber: Short) = withContext(Dispatchers.IO) {
-        queries.selectByCardNumber(cardNumber.toLong()).asFlow().mapToOneOrNull()
-    }
-
     override fun insertOrUpdate(card: Card) {
         queries.insertOrUpdateCard(card)
     }
 
-    override fun delete(cardNumber: Long) {
-        queries.deleteCard(cardNumber)
+    override fun delete(id: Int) {
+        queries.deleteCard(id)
     }
 }
 
 class PreviewCardRepositoryImpl() : CardRepository {
     override suspend fun getAll(): Flow<List<Card>> = listOf(listOf<Card>()).asFlow()
 
-    override suspend fun getCard(cardNumber: Short) = listOf<Card>().asFlow()
-
     override fun insertOrUpdate(card: Card) {
     }
 
-    override fun delete(cardNumber: Long) {
+    override fun delete(id: Int) {
     }
 }

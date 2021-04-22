@@ -1,5 +1,5 @@
 CREATE TABLE card(
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    id INTEGER AS Integer NOT NULL PRIMARY KEY AUTOINCREMENT,
     cardNumber INTEGER NOT NULL,
     fullName TEXT NOT NULL,
     cvc INTEGER AS Short NOT NULL,
@@ -16,11 +16,6 @@ CREATE INDEX card_fullName ON card(fullName);
 selectAllCards:
 SELECT *
 FROM card;
-
-selectByCardNumber:
-SELECT *
-FROM card
-WHERE id = ?;
 
 insertOrUpdateCard:
 INSERT OR REPLACE INTO card(id, cardNumber, fullName, cvc, iban, bic, validMonth, validYear, color, isVisa)

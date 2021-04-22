@@ -15,6 +15,7 @@ class CardViewModel(
 ) : ViewModel() {
     var creditCards by mutableStateOf(listOf<Card>())
     var selectedCard: Card? by mutableStateOf(null)
+    var isEdit: Boolean by mutableStateOf(false)
 
     init {
         getAllCreditCards()
@@ -36,6 +37,7 @@ class CardViewModel(
         )
 
         selectedCard = dummyCard
+        isEdit = false
     }
 
     fun saveCard(card: Card) {
@@ -43,7 +45,7 @@ class CardViewModel(
     }
 
     fun deleteCard(card: Card) {
-        cardRepository.delete(card.cardNumber)
+        cardRepository.delete(card.id)
     }
 
     private fun getAllCreditCards() {
