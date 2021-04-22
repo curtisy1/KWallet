@@ -1,0 +1,66 @@
+[versions]
+accompanist = "0.7.0"
+material = "1.3.0"
+androidx-appcompat = "1.3.0-beta01"
+androidx-core = "1.5.0-beta03"
+androidx-startup = "1.0.0"
+androidx-activity = "1.3.0-alpha04"
+androidx-compose = "1.0.0-beta02"
+androidx-constraintlayout = "1.0.0-alpha04"
+androidx-lifecycleExtensions = "2.2.0" # Deprecated remove once koin supports it
+androidx-lifecycle = "2.3.0"
+androidx-navigation = "1.0.0-alpha09"
+kotlin = "1.4.32"
+coroutines = "1.4.2"
+koin = "3.0.1-beta-1"
+sqldelight = "1.4.4"
+timber = "4.7.1"
+
+[libraries]
+accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
+
+
+material = { module = "com.google.android.material:material", version.ref = "material" }
+
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidx-startup" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-material-compose = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+androidx-material-icons-core-compose = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose" }
+androidx-material-icons-extended-compose = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose" }
+androidx-ui-compose = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-ui-tooling-compose = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout" }
+androidx-lifecycleExtensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx-lifecycleExtensions" }
+androidx-lifecycleLivedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-androidExt = { module = "io.insert-koin:koin-android-ext", version.ref = "koin" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-coreExt = { module = "io.insert-koin:koin-core-ext", version.ref = "koin" }
+koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+
+sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight" }
+
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+[bundles]
+accompanist = ["accompanist-insets", "accompanist-flowlayout"]
+androidx-compose = ["androidx-material-compose", "androidx-material-icons-core-compose", "androidx-material-icons-extended-compose", "androidx-ui-compose", "androidx-ui-tooling-compose"]
+androidx-lifecycle = ["androidx-lifecycleLivedata", "androidx-lifecycleRuntime", "androidx-lifecycleViewmodel", "androidx-lifecycleExtensions"]
+coroutines = ["coroutines-android", "coroutines-core"]
+koin = ["koin-android", "koin-androidExt", "koin-androidx-compose", "koin-core", "koin-coreExt", "koin-androidx-workmanager"]
+sqldelight = ["sqldelight-android-driver", "sqldelight-coroutines-extensions", "sqldelight-runtime"]

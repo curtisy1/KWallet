@@ -41,7 +41,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependencies.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = "1.0.0-beta02"
     }
 
     packagingOptions {
@@ -70,44 +70,27 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 dependencies {
 
     implementation(project(":data"))
-    implementation(Dependencies.KotlinX.Coroutines.core)
-    implementation(Dependencies.KotlinX.Coroutines.android)
+    implementation(libs.bundles.coroutines)
 
-    implementation(Dependencies.Kotlin.stdlib)
-    implementation(Dependencies.AndroidX.core)
-    implementation(Dependencies.AndroidX.appcompat)
-    implementation(Dependencies.Android.material)
-    implementation(Dependencies.AndroidX.startup)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.startup)
 
-    implementation(Dependencies.AndroidX.Compose.UI.ui)
-    implementation(Dependencies.AndroidX.Compose.Material.material)
-    implementation(Dependencies.AndroidX.Compose.UI.tooling)
-    implementation(Dependencies.AndroidX.Activity.compose)
-    implementation(Dependencies.AndroidX.Navigation.compose)
-    implementation(Dependencies.AndroidX.Compose.Material.iconsCore)
-    implementation(Dependencies.AndroidX.Compose.Material.iconsExtended)
-    implementation(Dependencies.AndroidX.ConstraintLayout.compose)
+    implementation(libs.bundles.androidx.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
-    api(Dependencies.AndroidX.LifeCycle.runtime)
-    api(Dependencies.AndroidX.LifeCycle.viewmodel)
-    api(Dependencies.AndroidX.LifeCycle.extensions)
-    api(Dependencies.AndroidX.LifeCycle.livedata)
+    api(libs.bundles.androidx.lifecycle)
 
-    implementation(Dependencies.Accompanist.insets)
-    implementation(Dependencies.Accompanist.flowLayout)
+    implementation(libs.bundles.accompanist)
 
-    implementation(Dependencies.Koin.core)
-    implementation(Dependencies.Koin.coreExt)
-    implementation(Dependencies.Koin.android)
-    implementation(Dependencies.Koin.androidExt)
-    implementation(Dependencies.Koin.workManager)
-    implementation(Dependencies.Koin.compose)
+    implementation(libs.bundles.koin)
 
-    implementation(Dependencies.SqlDelight.runtime)
-    implementation(Dependencies.SqlDelight.android)
-    implementation(Dependencies.SqlDelight.coroutineExtensions)
+    implementation(libs.bundles.sqldelight)
 
-    api(Dependencies.Timber.base)
+    api(libs.timber)
 }
 
 ktlint {
