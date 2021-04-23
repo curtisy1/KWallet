@@ -1,0 +1,47 @@
+name: Tag & Publish Beta
+
+on:
+  push:
+    branches:
+      'main'
+
+jobs:
+  sign:
+    name: Sign and Save Bundles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Build Mobile Release Artifacts
+        run: ./gradlew assembleRelease
+      - name: Sign Mobile Release
+        id: sign-mobile-release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: Save Signed Mobile Bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.aab
+          path: ${{ steps.sign-mobile-release.outputs.signedReleaseFile }}
+      - name: Save Signed APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: ${{ steps.sign-mobile-release.outputs.signedReleaseFile }}
