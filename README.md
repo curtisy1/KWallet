@@ -35,14 +35,12 @@ These are in the current order I plan to work on them. If you have any other ide
 - Think about different ways of presenting the card creation layer. A new screen seems overkill
 
 ### Future thoughts
-- Set up a GitHub action
 - UI overhaul, custom color scheme, material or glassmorph design, animations and transitions
 - Add some tests
 - Make the whole project more modular
 - Add other types of cards, i.e. debit cards, insurance, ID?
 - Add payment details screen for each credit card
 - Add biometric/password lock so your credit cards are actually secure
-- Release it on F-Droid
 
 ---
 
@@ -52,6 +50,6 @@ Yes please! Contributions are always welcome. The code is probably a bit messy s
 ---
 
 ## License
-[MIT](LICENSE.md)
+[PolyForm Non-Commercial](LICENSE.md)
 
 For a full overview of dependencies and their licenses also see [third-party-licenses](/third-party-licenses)
