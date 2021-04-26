@@ -25,12 +25,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build Mobile Release Artifacts
-        run: ./gradlew assembleRelease
-      - name: Sign Mobile Release
-        id: sign-mobile-release
+        run: ./gradlew assembleRelease && ./gradlew bundleRelease
+      - name: Sign APK Release
+        id: sign-apk-release
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: Sign Appbundle Release
+        id: sign-appbundle-release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -39,9 +48,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-release.aab
-          path: ${{ steps.sign-mobile-release.outputs.signedReleaseFile }}
+          path: ${{ steps.sign-appbundle-release.outputs.signedReleaseFile }}
       - name: Save Signed APK
         uses: actions/upload-artifact@v2
         with:
           name: app-release.apk
-          path: ${{ steps.sign-mobile-release.outputs.signedReleaseFile }}
+          path: ${{ steps.sign-apk-release.outputs.signedReleaseFile }}
